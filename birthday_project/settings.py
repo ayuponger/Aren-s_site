@@ -3,6 +3,7 @@ Django settings for birthday_project.
 Minimal, single-app, no DB required to view the site.
 """
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
