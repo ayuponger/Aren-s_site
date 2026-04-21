@@ -1,0 +1,180 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Happy Birthday {{ person_name }} 💜</title>
+<meta name="description" content="A love letter for {{ person_name }} — the brightest, most adored youngest daughter. Happy Birthday!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'birthday/css/style.css' %}">
+</head>
+<body>
+
+<!-- floating petals layer -->
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<!-- music toggle -->
+<audio id="bgMusic" loop preload="auto" src="{% static 'birthday/media/music.mp3' %}"></audio>
+<button class="music-toggle" id="musicToggle" aria-label="Toggle music">
+  <span class="mt-icon">♪</span>
+  <span class="mt-label">music off</span>
+</button>
+
+<!-- progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-inner">
+    <p class="eyebrow reveal">A BirthDay Celebration of</p>
+    <h1 class="hero-title">
+      {% for ch in hero_message %}<span class="ch" style="--i:{{ forloop.counter0 }}">{% if ch == ' ' %}&nbsp;{% else %}{{ ch }}{% endif %}</span>{% endfor %}
+    </h1>
+    <p class="hero-sub reveal" data-delay="600">{{ hero_sub }}</p>
+
+    <div class="hero-portrait reveal" data-delay="900">
+      <div class="portrait-ring"></div>
+      <img src="{% static 'birthday/media/' %}{{ images.0 }}" alt="{{ person_name }}" onerror="this.classList.add('missing')">
+    </div>
+
+    <a href="#story" class="scroll-cue" aria-label="Scroll down">
+      <span></span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="story section" id="story">
+  <div class="container split">
+    <div class="split-text">
+      <p class="eyebrow reveal">Chapter one</p>
+      <h2 class="reveal">Beginnings.</h2>
+      {% for p in story_paragraphs %}
+        <p class="lead reveal" data-delay="{{ forloop.counter0|add:200 }}">{{ p }}</p>
+      {% endfor %}
+    </div>
+    <div class="split-image reveal-img">
+      <div class="frame">
+        <img src="{% static 'birthday/media/' %}{{ images.1 }}" alt="Memory of {{ person_name }}" onerror="this.classList.add('missing')">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARALLAX BANNER ============ -->
+<section class="parallax" id="parallax">
+  <div class="parallax-image" data-speed="0.35">
+    <img src="{% static 'birthday/media/' %}{{ images.2 }}" alt="" onerror="this.classList.add('missing')">
+  </div>
+  <div class="parallax-overlay"></div>
+  <h2 class="parallax-title reveal">
+    <em>Bright.</em> &nbsp; Loved. &nbsp; <em>Adored.</em>
+  </h2>
+</section>
+
+<!-- ============ ANIMATED CAKE ============ -->
+<section class="cake-section section" id="cake">
+  <p class="eyebrow reveal center">Make a wish</p>
+  <h2 class="reveal center">Blow out the candles.</h2>
+  <p class="lead center reveal">Tap the flames — make a wish {{ person_name }} 🤍</p>
+
+  <div class="cake-wrap reveal" data-delay="200">
+    <div class="cake">
+      <div class="plate"></div>
+      <div class="layer layer-bottom"></div>
+      <div class="layer layer-middle"></div>
+      <div class="layer layer-top"></div>
+      <div class="candles">
+        <div class="candle" data-flame><div class="flame"></div></div>
+        <div class="candle" data-flame><div class="flame"></div></div>
+        <div class="candle" data-flame><div class="flame"></div></div>
+        <div class="candle" data-flame><div class="flame"></div></div>
+        <div class="candle" data-flame><div class="flame"></div></div>
+      </div>
+    </div>
+    <p class="wish-status" id="wishStatus">5 candles to blow…</p>
+  </div>
+</section>
+
+<!-- ============ MEMORIES (videos) ============ -->
+<section class="memories section" id="memories">
+  <div class="container">
+    <p class="eyebrow reveal">In motion</p>
+    <h2 class="reveal">Moments worth replaying.</h2>
+    <p class="lead reveal" data-delay="100">Four little clips. Infinite reasons to smile.</p>
+
+    <div class="video-grid">
+      {% for v in videos %}
+        <div class="video-card reveal" data-delay="{{ forloop.counter0|add:100 }}">
+          <video src="{% static 'birthday/media/' %}{{ v }}" controls preload="metadata" playsinline muted onerror="this.parentElement.classList.add('missing')"></video>
+          <span class="video-tag">clip 0{{ forloop.counter }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery section" id="gallery">
+  <div class="container">
+    <p class="eyebrow reveal">A few favourites</p>
+    <h2 class="reveal">The {{ person_name }} archive.</h2>
+
+    <div class="masonry">
+      <div class="m-card tall reveal">
+        <img src="{% static 'birthday/media/' %}{{ images.3 }}" alt="" onerror="this.classList.add('missing')">
+      </div>
+      <div class="m-card reveal" data-delay="120">
+        <img src="{% static 'birthday/media/' %}{{ images.4 }}" alt="" onerror="this.classList.add('missing')">
+      </div>
+      <div class="m-card wide reveal" data-delay="220">
+        <img src="{% static 'birthday/media/' %}{{ images.5 }}" alt="" onerror="this.classList.add('missing')">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTES ============ -->
+<section class="quotes section" id="quotes">
+  <div class="container">
+    <p class="eyebrow reveal center">Words from those who love her</p>
+    <h2 class="reveal center">Five voices. One wish.</h2>
+
+    <div class="quote-list">
+      {% for q in quotes %}
+        <figure class="quote-card reveal" data-delay="{{ forloop.counter0|add:100 }}">
+          <div class="qc-avatar">
+            <img src="{% static 'birthday/media/' %}{{ q.image }}" alt="{{ q.author }}" onerror="this.classList.add('missing')">
+          </div>
+          <blockquote>“{{ q.text }}”</blockquote>
+          <figcaption>— {{ q.author }}</figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL ============ -->
+<section class="final" id="final">
+  <div class="final-glow"></div>
+  <div class="container center">
+    <p class="eyebrow reveal">And so</p>
+    <h2 class="final-title reveal">Happiest birthday,<br><em>{{ person_name }}.</em></h2>
+    <p class="lead reveal" data-delay="200">{{ tagline }}</p>
+    <button class="confetti-btn reveal" data-delay="400" id="confettiBtn">God Bless you and happy journey ahead.</button>
+  </div>
+  <canvas id="confettiCanvas"></canvas>
+</section>
+
+<footer class="footer">
+  <p>carefully made just for {{ person_name }}</p>
+</footer>
+
+<script src="{% static 'birthday/js/main.js' %}"></script>
+</body>
+</html>
